@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIS HUB</title>
+    <style>
+        body {
+    background: linear-gradient(to bottom, white, #e7be89);
+    background-attachment: fixed;
+    padding-bottom: 60px;
+}
+header img{
+    display: inline;
+    width: 6%;
+    float: left;
+    border: 3px solid #a9002dec;
+    border-radius: 100%;
+}
+header h1 {
+    display: inline;
+    margin-bottom: 50px;
+    color: #a9002dec;
+    padding-bottom: 500px;
+}
+header img h1 {
+    display: inline-block;
+}
+
+/* Top navigation */
+nav{
+    background-color: #a9002dec;
+    padding: 2px;
+    border-radius: 10px;
+}
+nav ul{
+    text-align: center;
+}
+nav li {
+    list-style-type: none;
+    font-size: larger;
+    display: inline;
+    margin: 10px;
+    text-align: right;
+    justify-content: space-evenly;
+    padding-right: 50px;
+}
+nav li a{
+    color: white;
+    text-decoration: none;
+}
+nav li a:hover{
+    color: black;
+}
+.active{
+    color:black;
+}
+
+/* Notification */
+.header-buttons {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+            }
+
+            .notif_pos,.menu_pos {
+            position: relative;
+            }
+
+            .open_notif, .open_menu {
+            position: static;
+            font-size: 24px;
+            cursor: pointer;
+            }
+            .open_notif label{
+                right: 25%;
+            }
+
+        .notification {
+            height: 0;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #a9002dec;
+            overflow: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 100;
+        }
+
+        .not_head {
+            text-align: center;
+        }
+
+        .notification a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #ffffff;
+            display: block;
+        }
+
+        .notification a:hover {
+            width: 100%;
+            color: #000000;
+            background-color: #ff8d64;
+        }
+
+        .notif_button {
+            display: none;
+        }
+
+        .close_notif {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .notif_button:checked + .notification {
+            height: 50%;
+            width: 25%;
+        }
+
+        .notif_button:checked + .notification + .open_notif {
+            display: none;
+        }
+
+        .notif_button:not(:checked) + .notification + .open_notif {
+            display: inline-block;
+        }
+
+        /* notif contents */
+        .notification {
+            height: 0;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: white;
+            overflow: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            z-index: 100;
+        }
+
+        .not_head {
+            text-align: center;
+            color:#a9002d;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .notification_list {
+            overflow-y: auto;
+            max-height: calc(100% - 80px);
+        }
+
+        .notification_item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .notification_item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .notification_item.unread {
+            border-left: 4px solid #a9002d;
+        }
+
+        .notif_icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+            border: 2px solid #fff;
+        }
+
+        .notif_content {
+            flex: 1;
+        }
+
+        .notif_title {
+            color: black;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .notif_text {
+            color: black;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .notif_time {
+            color: #a0a0a0;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .notification_badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color:#a9002d;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .close_notif {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            cursor: pointer;
+            color:#a9002d;
+        }
+
+        .notif_button:checked + .notification {
+            height: 70%;  /* Increased height */
+            width: 35%;   /* Increased width */
+        }
+
+        .notif_button:checked + .notification + .open_notif {
+            display: none;
+        }
+
+        .notif_button:not(:checked) + .notification + .open_notif {
+            display: inline-block;
+            position: relative;
+        }
+
+        .see_all_btn {
+            display: block;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px;
+            margin: 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .see_all_btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /*The sliding menu*/
+        .menu {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #a9002dec;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        z-index: 100;
+        }
+        .menu a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #ffffff;
+        display: block;
+        }
+        .menu a:hover {
+        width: 100%;
+        color: #000000;
+        background-color: #ff8d64;
+        }
+        .menu_button {
+        display: none;
+        }
+        .close_menu {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+        cursor: pointer;
+        }
+        .open_menu {
+        font-size: 30px;
+        cursor: pointer;
+        }
+        .menu_button:checked + .menu {
+        width: 25%;
+        }
+        .menu_button:checked + .menu + .open_menu {
+        display: none;
+        }
+        .menu_button:not(:checked) + .menu + .open_menu {
+        display: inline-block;
+        }
+
+/* Post section */
+.section {
+    text-align: center;
+}
+.post {
+    width: 70%;
+    padding: 15px;
+    margin: 0 auto;
+}
+.profile_icon {
+    height: 20px;
+    width: 20px;
+    border-radius: 30px;
+}
+.user_icon, .post_header {
+    position: auto;
+    display: inline-block;
+}
+.post_header {
+    font-size: 18px;
+    font-weight: bold;
+}
+.post_body {
+    margin-top: 10px;
+    font-size: 16px;
+}
+.like_btn {
+    border: none;
+    background-color: transparent;
+}
+.like_btn, #comm_btn, #comm_btn1, #comm_btn2, #comm_btn3, #comm_btn4, #comm_btn5, #comm_btn6 {
+    margin: 20px 10px 0 0;
+    cursor: pointer;
+}
+#comm_btn, #comm_btn1, #comm_btn2, #comm_btn3, #comm_btn4, #comm_btn5, #comm_btn6 {
+    display: none;
+}
+#comm_inp, #comm_inp1, #comm_inp2, #comm_inp3, #comm_inp4, #comm_inp5, #comm_inp6 {
+    display: none;
+    margin-top: 20px;
+    padding: 10px;
+}
+#comm_btn:checked + label + #comm_inp {
+    display: block;
+}
+#comm_btn1:checked + label + #comm_inp1 {
+    display: block;
+}
+#comm_btn2:checked + label + #comm_inp2 {
+    display: block;
+}
+#comm_btn3:checked + label + #comm_inp3 {
+    display: block;
+}
+#comm_btn4:checked + label + #comm_inp4 {
+    display: block;
+}
+#comm_btn5:checked + label + #comm_inp5 {
+    display: block;
+}
+#comm_btn6:checked + label + #comm_inp6 {
+    display: block;
+}
+/* Post options (three dots) */ 
+.post_options {
+    position: relative;
+    display: inline-block;
+    float: right;
+    margin-top: -25px;
+}
+
+.options_button {
+    display: none;
+}
+
+.options_icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.options_menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #a9002dec;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-width: 120px;
+    z-index: 200;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+}
+
+.options_menu a {
+    color: black;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+}
+
+.options_menu a:hover {
+    background-color: #ff8d64;
+}
+
+.options_button:checked + .options_icon + .options_menu {
+    display: block;
+}
+
+/* footer */
+footer {
+    background-color: #a9002dec;
+    color: white;
+    text-align: center;
+    padding: 20px 0; 
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 12px; 
+}
+  
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Logo icon and Title -->
+        <img src="/HTML/CIS-HUB/images/CISFinalpt2.png" alt="ArsyTech Logo" class="logo_icon">
+        <h1>CIS Hub</h1>
+        
+        <div class="header-buttons">
+            <div class="notif_pos">
+                <input type="checkbox" id="notif_use" class="notif_button">
+                <div class="notification">
+                    <label for="notif_use" class="close_notif">×</label>
+                    <h2 class="not_head">Notifications</h2>
+                    <div class="notification_list">
+                        <!-- Unread notification -->
+                        <div class="notification_item unread">
+                            <img src="/HTML/CIS-HUB/images/CIS logo.png" alt="CIS" class="notif_icon">
+                            <div class="notif_content">
+                                <div class="notif_title">College of Information Sciences</div>
+                                <p class="notif_text">CIS posted a new announcement about Election Results 2025.</p>
+                                <p class="notif_time">Just now</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Unread notification -->
+                        <div class="notification_item unread">
+                            <img src="/HTML/CIS-HUB/images/pfpIcon.jpg" alt="John" class="notif_icon">
+                            <div class="notif_content">
+                                <div class="notif_title">John Ortega</div>
+                                <p class="notif_text">liked your post about note-taking apps.</p>
+                                <p class="notif_time">5 minutes ago</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Regular notification -->
+                        <div class="notification_item">
+                            <img src="/HTML/CIS-HUB/images/pfpIcon.jpg" alt="Maria" class="notif_icon">
+                            <div class="notif_content">
+                                <div class="notif_title">Maria Batumbakal</div>
+                                <p class="notif_text">replied to your comment: "Thanks for the suggestion!"</p>
+                                <p class="notif_time">20 minutes ago</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Regular notification -->
+                        <div class="notification_item">
+                            <img src="/HTML/CIS-HUB/images/CIS logo.png" alt="CIS" class="notif_icon">
+                            <div class="notif_content">
+                                <div class="notif_title">College of Information Sciences</div>
+                                <p class="notif_text">CIS-SG is looking for Student Leaders! Apply now.</p>
+                                <p class="notif_time">1 hour ago</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Regular notification -->
+                        <div class="notification_item">
+                            <img src="/HTML/CIS-HUB/images/pfpIcon.jpg" alt="Helena" class="notif_icon">
+                            <div class="notif_content">
+                                <div class="notif_title">Helena Dela Cruz</div>
+                                <p class="notif_text">mentioned you in a post about the fun run.</p>
+                                <p class="notif_time">2 hours ago</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Regular notification -->
+                        <div class="notification_item">
+                            <img src="/HTML/CIS-HUB/images/pfpIcon.jpg" alt="Bussin" class="notif_icon">
+                            <div class="notif_content">
+                                <div class="notif_title">Bussin D. Sknots</div>
+                                <p class="notif_text">replied to your game development idea.</p>
+                                <p class="notif_time">Yesterday</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="see_all_btn">See All Notifications</a>
+                </div>
+                <label for="notif_use" class="open_notif">
+                    <span class="material-symbols-rounded">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="27px" fill="#000000">
+                            <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/>
+                        </svg>
+                    </span>
+                    <div class="notification_badge">3</div>
+                </label>
+            </div>
+
+            <div class="menu_pos">
+                <input type="checkbox" id="menu_use" class="menu_button">
+                <div class="menu">
+                    <label for="menu_use" class="close_menu">×</label>
+                    <a href="/HTML/CIS-HUB/1-Admin/Menu/ManageProfile.html"><h5>Manage profile</h5></a>
+                    <a href="/HTML/CIS-HUB/1-Admin/Menu/StudentFees.html"><h5>Student fees</h5></a>
+                    <a href="/HTML/CIS-HUB/1-Admin/Menu/Language.html"><h5>Language</h5></a>
+                    <a href="/HTML/CIS-HUB/1-Admin/Menu/HelpAndSupport.html"><h5>Help & Support</h5></a>
+                    <a href="/HTML/CIS-HUB/1-Admin/Menu/about_us.html"><h5>About us</h5></a>
+                </div>
+                <label for="menu_use" class="open_menu button">
+                    <span class="material-symbols-rounded"><svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="27px" fill="#000000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Header navigation -->
+        <nav>
+            <ul>
+                <li><a href="/HTML/CIS-HUB/1-Admin/Homepage_admin.html">Home</a></li>
+                <li><a href="/HTML/CIS-HUB/1-Admin/task_admin.html"> Task</a></li>
+                <li><a href="/HTML/CIS-HUB/1-Admin/Forum_admin.html" class="active"> Forum</a></li>
+                <li><a href="/HTML/CIS-HUB/1-Admin/Q&A_admin.html">Q&A</a></li>
+                <li><a href="/HTML/CIS-HUB/1-Admin/StudentAccounts.html">Student Accounts</a></li>
+                <li><a href="/HTML/CIS-HUB/1-Admin/studentfees.html">Students Fees</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Post Section (Unchangable) -->
+    <section>
+        <h2 class="section">Student Forum</h2>
+            <div class="post" id="post">
+                <div class="user_icon"><img src="c0749b7cc401421662ae901ec8f9f660.jpg" class="profile_icon"></div>
+                <div class="post_header">John Ortega</div>
+                <div class="post_options">
+                    <input type="checkbox" id="options_btn" class="options_button">
+                    <label for="options_btn" class="options_icon">⋯</label>
+                    
+                </div>
+                <div class="post_body">I'm looking for a good note-taking app that syncs across devices. Any recommendations? Also, digital or handwritten notes-what works better for you?</div>
+                <button class="like_btn">👍<span class="count">2</span> Likes</button>
+                <input type="checkbox" id="comm_btn">
+                    <label for="comm_btn">💬<span class="count">16</span> Comment</label>
+                    <input type="text" id="comm_inp" placeholder="Comment..." >
+            </div>
+            <hr>
+            <div class="post" id="post">
+                <div class="user_icon"><img src="c0749b7cc401421662ae901ec8f9f660.jpg" class="profile_icon"></div>
+                <div class="post_header">Helena Dela Cruz</div>
+                <div class="post_options">
+                    <input type="checkbox" id="options_btn" class="options_button">
+                    <label for="options_btn" class="options_icon">⋯</label>
+                    
+                </div>
+                <div class="post_body">Hello po! Sino po sasali sa fun run?</div>
+                <button class="like_btn">👍<span class="count">15</span> Likes</button>
+                <input type="checkbox" id="comm_btn1">
+                    <label for="comm_btn1">💬<span class="count">12</span> Comment</label>
+                    <input type="text" id="comm_inp1" placeholder="Comment..." >
+            </div>
+            <hr>
+            <div class="post" id="post">
+                <div class="user_icon"><img src="c0749b7cc401421662ae901ec8f9f660.jpg" class="profile_icon"></div>
+                <div class="post_header">Maria Batumbakal</div>
+                <div class="post_options">
+                    <input type="checkbox" id="options_btn" class="options_button">
+                    <label for="options_btn" class="options_icon">⋯</label>
+                    
+                </div>
+                <div class="post_body">Where do you guys study outside of school? I need a coffee spot!</div>
+                <button class="like_btn">👍<span class="count">21</span> Likes</button>
+                <input type="checkbox" id="comm_btn2">
+                    <label for="comm_btn2">💬<span class="count">18</span> Comment</label>
+                    <input type="text" id="comm_inp2" placeholder="Comment..." >
+            </div>
+            <hr>
+            <div class="post" id="post">
+                <div class="user_icon"><img src="c0749b7cc401421662ae901ec8f9f660.jpg" class="profile_icon"></div>
+                <div class="post_header">Jhonny Dig-Bick</div>
+                <div class="post_options">
+                    <input type="checkbox" id="options_btn" class="options_button">
+                    <label for="options_btn" class="options_icon">⋯</label>
+                    
+                </div>
+                <div class="post_body">Guys what program should I do?</div>
+                <button class="like_btn">👍<span class="count">23</span> Likes</button>
+                <input type="checkbox" id="comm_btn3">
+                    <label for="comm_btn3">💬<span class="count">18</span> Comment</label>
+                    <input type="text" id="comm_inp3" placeholder="Comment..." >
+            </div>
+            <hr>
+            <div class="post" id="post">
+                <div class="user_icon"><img src="c0749b7cc401421662ae901ec8f9f660.jpg" class="profile_icon"></div>
+                <div class="post_header">Mike Hwak</div>
+                <div class="post_options">
+                    <input type="checkbox" id="options_btn" class="options_button">
+                    <label for="options_btn" class="options_icon">⋯</label>
+                    
+                </div>
+                <div class="post_body">I'm looking fora good shop for new pc! Help!</div>
+                <button class="like_btn">👍<span class="count">29</span> Likes</button>
+                <input type="checkbox" id="comm_btn4">
+                    <label for="comm_btn4">💬<span class="count">32</span> Comment</label>
+                    <input type="text" id="comm_inp4" placeholder="Comment..." >
+            </div>
+            <hr>
+            <div class="post" id="post">
+                <div class="user_icon"><img src="c0749b7cc401421662ae901ec8f9f660.jpg" class="profile_icon"></div>
+                <div class="post_header">Bussin D. Sknots</div>
+                <div class="post_options">
+                    <input type="checkbox" id="options_btn" class="options_button">
+                    <label for="options_btn" class="options_icon">⋯</label>
+                  
+                </div>
+                <div class="post_body">Guys! anyone share wanna share your ideas on what game to create?</div>
+                <button class="like_btn">👍<span class="count">27</span> Likes</button>
+                <input type="checkbox" id="comm_btn5">
+                    <label for="comm_btn5">💬<span class="count">18</span> Comment</label>
+                    <input type="text" id="comm_inp5" placeholder="Comment..." >
+            </div>
+            <hr>
+            <div class="post" id="post">
+                <div class="user_icon"><img src="c0749b7cc401421662ae901ec8f9f660.jpg" class="profile_icon"></div>
+                <div class="post_header">Fing R. Miass</div>
+                <div class="post_options">
+                    <input type="checkbox" id="options_btn" class="options_button">
+                    <label for="options_btn" class="options_icon">⋯</label>
+                    
+                </div>
+                <div class="post_body">Anyone attending the event for this week? Accompany me please!</div>
+                <button class="like_btn">👍<span class="count">40</span> Likes</button>
+                <input type="checkbox" id="comm_btn6">
+                    <label for="comm_btn6">💬<span class="count">58</span> Comment</label>
+                    <input type="text" id="comm_inp6" placeholder="Comment..." >
+            </div>
+    </section>
+
+         <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 CIS Hub. All Rights Reserved.</p>
+            </div>
+        </footer>
+</body>
+</html>

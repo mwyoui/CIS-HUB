@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIS Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body{
+    background:linear-gradient(to bottom, white, #e7be89);
+}
+
+header img{
+    display: inline;
+    width: 6%;
+    float:left;
+    border: 4px solid #a9002dec;
+    border-radius: 100%;
+}
+header h1 {
+    display: inline;
+    margin-bottom: 50px;
+    color: #a9002dec;
+    padding-bottom: 500px;
+
+/*top nav css*/
+}
+.menu-icon{
+    display: inline-block;
+    float: right;
+}
+
+.menu-icon div{
+    width: 25px;
+    height: 4px;
+    background-color: black;
+    margin: 5px 0;
+    border-radius: 10px;
+    text-align: right;
+    justify-content: right;
+}
+
+nav{
+    background-color: #a9002dec;
+    padding: 2px;
+    border-radius: 10px;
+}
+nav ul{
+    text-align: center;
+
+}
+
+nav li {
+    list-style-type: none;
+    font-size:larger;
+    display: inline;
+    margin: 10px;
+    text-align: right;
+    justify-content: space-evenly;
+    padding-right: 50px;
+}
+nav li a{
+    color: white;
+    text-decoration: none;
+}
+nav ul li a:hover{
+    color: black;
+}
+.active{
+    color:black;
+}
+/* Notification */
+.header-buttons {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .notif_pos,.menu_pos {
+      position: relative;
+    }
+
+    .open_notif, .open_menu {
+      position: static;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .open_notif label{
+        right: 25%;
+    }
+
+.notification {
+    height: 0;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #a9002dec;
+    overflow: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    z-index: 100;
+  }
+
+  .not_head {
+    text-align: center;
+  }
+
+  .notification a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ffffff;
+    display: block;
+  }
+
+  .notification a:hover {
+    width: 100%;
+    color: #000000;
+    background-color: #ff8d64;
+  }
+
+  .notif_button {
+    display: none;
+  }
+
+  .close_notif {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .notif_button:checked + .notification {
+    height: 50%;
+    width: 25%;
+  }
+
+  .notif_button:checked + .notification + .open_notif {
+    display: none;
+  }
+
+  .notif_button:not(:checked) + .notification + .open_notif {
+    display: inline-block;
+  }
+
+/*The sliding menu*/
+.menu {
+height: 100%;
+width: 0;
+position: fixed;
+top: 0;
+right: 0;
+background-color: #a9002dec;
+overflow-x: hidden;
+transition: 0.5s;
+padding-top: 60px;
+z-index: 100;
+}
+.menu a {
+padding: 8px 8px 8px 32px;
+text-decoration: none;
+font-size: 25px;
+color: #ffffff;
+display: block;
+}
+.menu a:hover {
+width: 100%;
+color: #000000;
+background-color: #ff8d64;
+}
+.menu_button {
+display: none;
+}
+.close_menu {
+position: absolute;
+top: 0;
+right: 25px;
+font-size: 36px;
+margin-left: 50px;
+cursor: pointer;
+}
+.open_menu {
+font-size: 30px;
+cursor: pointer;
+}
+.menu_button:checked + .menu {
+width: 25%;
+}
+.menu_button:checked + .menu + .open_menu {
+display: none;
+}
+.menu_button:not(:checked) + .menu + .open_menu {
+display: inline-block;
+}
+
+/* Main contents */
+        .tasks {
+            padding: 10px;
+        }
+        .task {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .button {
+            background-color: #005B3D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .footer {
+            background-color: #a9002dec;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #ddd;
+        }
+        .footer div {
+            text-align: center;
+        }
+        .task.done {
+            background-color: grey; 
+            border-color: grey;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .task.done .button {
+            background-color: #4caf50; 
+        }
+
+        /* footer */
+footer {
+    background-color: #a9002dec;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer-content p {
+    margin: 0;
+    font-size: 12px;
+  }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="/HTML/CIS-HUB/images/CISFinalpt2.png" alt="ArsyTech Logo">
+        <h1>CIS Hub</h1>
+
+        <div class="header-buttons">
+            <div class="notif_pos">
+                <input type="checkbox" id="notif_use" class="notif_button">
+                <div class="notification">
+                    <label for="notif_use" class="close_notif">×</label>
+                    <h2 class="not_head">Notifications</h2>
+                </div>
+                <label for="notif_use" class="open_notif">
+                    <span class="material-symbols-rounded"><svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="27px" fill="#000000"><path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/></svg></span>
+                </label>
+            </div>
+            <div class="menu_pos">
+                <input type="checkbox" id="menu_use" class="menu_button">
+                <div class="menu">
+                    <label for="menu_use" class="close_menu">×</label>
+                    <a href="/HTML/CIS-HUB/Menu/Menu.html#manage_profile"><h5>Manage profile</h5></a>
+                    <a href="#Student fees"><h5>Student fees</h5></a>
+                    <a href="#Language"><h5>Language</h5></a>
+                    <a href="#Help & Support"><h5>Help & Support</h5></a>
+                    <a href="/HTML/CIS-HUB/Menu/about_us.html"><h5>About us</h5></a>
+                </div>
+                <label for="menu_use" class="open_menu">
+                    <span class="material-symbols-rounded"><svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="27px" fill="#000000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></span>
+                </label>
+            </div>
+        </div>
+
+        <hr>
+        <nav>
+            <ul>
+                <li><a href="/HTML/CIS-HUB/2-CIS Student/Homepage.html">Home</a></li>
+                <li><a href="/HTML/CIS-HUB/2-CIS Student/task.html"  class="active">Task</a></li>
+                <li><a href="/HTML/CIS-HUB/2-CIS Student/Forum.html">Forum</a></li>
+                <li><a href="/HTML/CIS-HUB/2-CIS Student/Q&A.html">Q&A</a></li>
+            </ul>
+        </nav>
+        </header>
+
+    <h2 style="padding: 10px; text-align: center;">Student Task</h2>
+    <p style="text-align: center;">Please note that every missed college activities are fined 30PHP as per the CBL</p>
+    <div class="tasks">
+        <div class="task">
+            <div>
+                <strong>General Assembly</strong><br>
+                <p>CIS 107 4:00pm - 5:00pm</p>
+            </div>
+            <button class="button">Done</button>
+        </div>
+        <div class="task">
+            <div>
+                <strong>Solid Work</strong><br>
+                <p>CIS 8:00am - 4:00pm</p>
+            </div>
+            <button class="button">Done</button>
+        </div>
+        <div class="task">
+            <div>
+                <strong>General Assembly</strong><br>
+                <p>CIS 107 4:00pm</p>
+            </div>
+            <button class="button">Done</button>
+        </div>
+        <div class="task">
+            <div>
+                <strong>General Assembly</strong><br>
+                <p>CIS 107 4:00pm</p>
+            </div>
+            <button class="button">Done</button>
+        </div>
+        <div class="task">
+            <div>
+                <strong>General Assembly</strong><br>
+                <p>CIS 107 4:00pm</p>
+            </div>
+            <button class="button">Done</button>
+        </div>
+        <div class="task">
+            <div>
+                <strong>General Assembly</strong><br>
+                <p>CIS 107 4:00pm</p>
+            </div>
+            <button class="button">Done</button>
+        </div>
+    </div>
+    </footer>
+
+    <script>
+        const buttons = document.querySelectorAll('.button');
+    
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const task = button.closest('.task');
+                task.classList.toggle('done');
+            });
+        });
+    </script>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 CIS Hub. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
