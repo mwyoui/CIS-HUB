@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/HTML/CIS-HUB/Sign in/Sign in.css">
+    <title>Sign Up - CIS HUB</title>
+</head>
+<body>
+    <header>
+        <img src="/HTML/CIS-HUB/images/CISFinalpt2.png" alt="ArtsyTech">
+        <h1>CIS Hub - Sign In</h1>
+    </header>
+    <section class="form-container">
+        <form method="GET">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+
+            <div class="role-buttons">
+                <button type="submit" formaction="/HTML/CIS-HUB/1-Admin/Homepage_admin.html">Sign In as Admin</button>
+                <button type="submit" formaction="/HTML/CIS-HUB/2-CIS Student/Homepage.html">Sign In as Student</button>
+                <button type="submit" formaction="/HTML/CIS-HUB/3-Moderator/Homepage.html">Sign In as Moderator</button>
+                <button type="submit" formaction="/HTML/CIS-HUB/4- Department Officer/Homepage.html">Sign In as Department Officer</button>
+            </div>
+            <p>Don't have an account? <a href="/HTML/CIS-HUB/Sign in/Sign up.html" style="color:#a9002dec">Sign up here</a></p>
+        </form>
+    </section>
+</body>
+</html>
